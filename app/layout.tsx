@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter, Nunito } from 'next/font/google';
+import { Nunito } from 'next/font/google';
+import Header from '@/components/UI/Header';
 import '@/styles/globals.css';
-
-const inter = Inter({ subsets: ['latin'], weight: '400' });
 
 const nunito = Nunito({
   weight: ['300', '400', '500', '700', '900'],
@@ -22,8 +21,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${nunito.className}`}>
-        <header className="bg-black text-white">Header</header>
+      <body className={nunito.className}>
+        <Header />
         {children}
         <footer className="bg-black text-white">Footer</footer>
       </body>
