@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'personal': '0 4px 4px 4px rgba(0, 0, 0, 0.25)',
+      },
+      colors: {
+        'lightGrey': '#D9D9D9',
+        'darkGrey': '#A4A4A4',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
