@@ -11,6 +11,9 @@ const config: Config = {
       boxShadow: {
         'personal': '0 4px 4px 4px rgba(0, 0, 0, 0.25)',
       },
+      gridTemplateColumns: {
+        'list': 'repeat(auto-fill, minmax(288px, 1fr))',
+      },
       colors: {
         'lightGrey': '#D9D9D9',
         'darkGrey': '#A4A4A4',
