@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import ConfirmModal from './ConfirmModal';
 import SubmitButton from './SubmitButton';
 import YandexMap from './YandexMap';
+import { API_ENDPOINT } from '@/constants';
 
 interface IFormInput {
   name: string;
@@ -13,7 +14,7 @@ interface IFormInput {
 }
 
 export default function ContactsSection() {
-  const [confirm, setConfirm] = useState<boolean>(false);
+  const [confirm, setConfirm] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     register,
@@ -23,9 +24,11 @@ export default function ContactsSection() {
   } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async ({ name, phone }) => {
+    if (isLoading) return;
+
     setIsLoading(true);
 
-    await fetch('/api', {
+    await fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
