@@ -29,8 +29,6 @@ export default function Slider({ children, className }: SliderProps) {
     }
   };
 
-  console.log('render');
-
   return (
     <div
       className={`flex gap-[40px] max-w-[880px] my-0 mx-auto ${

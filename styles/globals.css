@@ -5,7 +5,6 @@
 html {
   scroll-behavior: smooth;
 
-  color-scheme: dark;
   font-size: 17px;
 }
 
@@ -31,4 +30,12 @@ body > main {
 .container {
   max-width: 1290px;
   margin: 0 auto;
+}
+
+.section {
+  margin-bottom: 136px;
+}
+
+.page {
+  padding-top: 101px;
 }

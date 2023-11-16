@@ -28,7 +28,7 @@ export default function PostsSection() {
   }, []);
 
   return (
-    <section className="mb-[136px]">
+    <section className="container section">
       <h2 className="font-bold text-[52px] text-center mb-[20px]">Instagram</h2>
 
       <p className="text-center mb-[30px]">
@@ -42,7 +42,12 @@ export default function PostsSection() {
 
       {isLoading && (
         <p className="py-[30px] flex justify-center items-center">
-          <Image src={'/gif/rolling.gif'} width={150} height={150} alt="Loading..." />
+          <Image
+            src={'/gif/rolling.gif'}
+            width={150}
+            height={150}
+            alt="Loading..."
+          />
         </p>
       )}
 

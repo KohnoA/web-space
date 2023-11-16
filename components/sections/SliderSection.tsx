@@ -38,7 +38,7 @@ const SLIDES_INFO: SlideInfoType[] = [
 
 export default function SliderSection() {
   return (
-    <section className="mt-[101px] mb-[136px]">
+    <section className="container section">
       <Slider>
         {SLIDES_INFO.map(({ count, caption, description }) => (
           <SliderItem key={description.title}>
