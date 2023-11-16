@@ -25,7 +25,7 @@ export default function ContactsSection() {
   const onSubmit: SubmitHandler<IFormInput> = async ({ name, phone }) => {
     setIsLoading(true);
 
-    await fetch('http://localhost:3000/api/', {
+    await fetch(process.env.NEXT_PUBLUC_API_HOST!, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export default function ContactsSection() {
       <div className="relative container">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="absolute z-30 bottom-[272px] translate-y-1/2 right-9 flex flex-col pt-[30px] pb-[50px] pl-[44px] pr-[105px] text-black bg-white shadow-personal"
+          className="absolute z-20 bottom-[272px] translate-y-1/2 right-9 flex flex-col pt-[30px] pb-[50px] pl-[44px] pr-[105px] text-black bg-white shadow-personal"
         >
           <h4 className="mb-[44px] text-[40px] text-black/40">
             Обратный звонок
