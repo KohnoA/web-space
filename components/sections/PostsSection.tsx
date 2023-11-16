@@ -3,7 +3,9 @@ import { getInstPostIds } from '@/utils/getInstPostIds';
 import { getInstPostsById } from '@/utils/getInstPostsById';
 import Image from 'next/image';
 
-export const fetchPosts = async (): Promise<[string[], boolean | undefined]> => {
+export const fetchPosts = async (): Promise<
+  [string[], boolean | undefined]
+> => {
   let data: string[] = [];
   let error;
 
@@ -57,7 +59,14 @@ export default async function PostsSection() {
                 <p>👇👇👇</p>
               </div>
             </div>
-            <Image src={link} fill sizes="288px" alt="Mock post" />
+            <Image
+              src={link}
+              blurDataURL={link}
+              placeholder="blur"
+              fill
+              sizes="288px"
+              alt="Mock post"
+            />
           </li>
         ))}
       </ul>
