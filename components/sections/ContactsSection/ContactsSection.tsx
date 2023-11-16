@@ -25,7 +25,7 @@ export default function ContactsSection() {
   const onSubmit: SubmitHandler<IFormInput> = async ({ name, phone }) => {
     setIsLoading(true);
 
-    await fetch(process.env.NEXT_PUBLUC_API_HOST!, {
+    await fetch('/api', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
