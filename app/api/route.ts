@@ -29,10 +29,6 @@ export async function POST(req: Request) {
   
     return NextResponse.json(info);
   } catch (err) {
-    if (err instanceof Error) {
-      return err.message;
-    } else {
-      return 'Error 500';
-    }
+    NextResponse.json({ err })
   }
 }
