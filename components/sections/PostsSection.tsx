@@ -1,31 +1,30 @@
-'use client';
-
 import { MOCK_INSTAGRAM } from '@/constants';
 import { getInstPostIds } from '@/utils/getInstPostIds';
 import { getInstPostsById } from '@/utils/getInstPostsById';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
-export default function PostsSection() {
-  const [posts, setPosts] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isError, setIsError] = useState<boolean>(false);
+export const fetchPosts = async (): Promise<[string[], boolean | undefined]> => {
+  let data: string[] = [];
+  let error;
 
-  useEffect(() => {
-    getInstPostIds(
+  try {
+    const arrayOfId = await getInstPostIds(
       process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID,
       process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN
-    )
-      .then((arrayOfId) =>
-        getInstPostsById(
-          arrayOfId,
-          process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN
-        )
-      )
-      .then((posts) => setPosts(posts))
-      .catch(() => setIsError(true))
-      .finally(() => setIsLoading(false));
-  }, []);
+    );
+    data = await getInstPostsById(
+      arrayOfId,
+      process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN
+    );
+  } catch {
+    error = true;
+  }
+
+  return [data, error];
+};
+
+export default async function PostsSection() {
+  const [data, error] = await fetchPosts();
 
   return (
     <section className="container section">
@@ -40,25 +39,14 @@ export default function PostsSection() {
         </a>
       </p>
 
-      {isLoading && (
-        <p className="py-[30px] flex justify-center items-center">
-          <Image
-            src={'/gif/rolling.gif'}
-            width={150}
-            height={150}
-            alt="Loading..."
-          />
-        </p>
-      )}
-
-      {isError && (
+      {error && (
         <p className="py-[30px] flex justify-center items-center">
           Не удалось загрузить фотографии, попробуйте позже.
         </p>
       )}
 
       <ul className="grid grid-cols-4 grid-rows-2 max-w-[1152px] mx-auto my-0">
-        {posts.map((link) => (
+        {data.map((link) => (
           <li
             key={link}
             className="relative cursor-pointer w-[100%] height-[100%] aspect-square select-none"

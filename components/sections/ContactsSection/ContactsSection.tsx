@@ -1,10 +1,10 @@
 'use client';
 
-import Button from '@/components/UI/Button';
-import { YANDEX_MAP_LINK } from '@/constants';
-import Image from 'next/image';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import ConfirmModal from './ConfirmModal';
+import SubmitButton from './SubmitButton';
+import YandexMap from './YandexMap';
 
 interface IFormInput {
   name: string;
@@ -13,49 +13,41 @@ interface IFormInput {
 }
 
 export default function ContactsSection() {
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<IFormInput>();
-  const [confirm, setConfirm] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<IFormInput> = ({ name, phone, conditions }) => {
+  const onSubmit: SubmitHandler<IFormInput> = async ({ name, phone }) => {
     setIsLoading(true);
 
-    setTimeout(() => {
-      console.log(name);
-      console.log(phone);
-      console.log(conditions);
-
-      setConfirm(true);
-      setIsLoading(false);
-      reset();
-    }, 1000);
+    await fetch('http://localhost:3000/api/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, phone }),
+    });
+  
+    setConfirm(true);
+    setIsLoading(false);
+    reset();
   };
 
   return (
     <section className="relative w-[100%] h-[544px]">
-      {confirm && (
-        <div className="fixed z-20 top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-black/20">
-          <div className="p-12 bg-white text-darkGrey text-center">
-            <p className="text-[28px] mb-10">
-              Обратный звонок зарегистрирован. <br /> Вам перезвонят в ближайшее
-              время.
-            </p>
-            <Button onClick={() => setConfirm(false)}>Ок</Button>
-          </div>
-        </div>
-      )}
-      <iframe className="w-[100%] h-[100%]" src={YANDEX_MAP_LINK}></iframe>
-      <div className="absolute top-0 left-0 w-[100%] h-[100%] bg-black/20 pointer-events-none"></div>
+      {confirm && <ConfirmModal close={() => setConfirm(false)} />}
+
+      <YandexMap />
 
       <div className="relative container">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="absolute z-10 bottom-[272px] translate-y-1/2 right-9 flex flex-col pt-[30px] pb-[50px] pl-[44px] pr-[105px] text-black bg-white shadow-personal"
+          className="absolute z-30 bottom-[272px] translate-y-1/2 right-9 flex flex-col pt-[30px] pb-[50px] pl-[44px] pr-[105px] text-black bg-white shadow-personal"
         >
           <h4 className="mb-[44px] text-[40px] text-black/40">
             Обратный звонок
@@ -99,28 +91,7 @@ export default function ContactsSection() {
             Согласие на обработку персональных данных
           </label>
 
-          <Button className="absolute -bottom-7 -right-7">
-            {
-              <>
-                <span
-                  className={`transition-opacity ${
-                    isLoading ? 'opacity-0' : ''
-                  }`}
-                >
-                  Отправить →
-                </span>
-                <Image
-                  className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity ${
-                    isLoading ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  src={'/gif/rolling-white.gif'}
-                  width={30}
-                  height={30}
-                  alt="loading"
-                />
-              </>
-            }
-          </Button>
+          <SubmitButton isLoading={isLoading} />
         </form>
       </div>
     </section>

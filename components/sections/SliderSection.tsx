@@ -27,8 +27,8 @@ const SLIDES_INFO: SlideInfoType[] = [
     },
   },
   {
-    count: '9',
-    caption: 'часов',
+    count: '2',
+    caption: 'дня',
     description: {
       title: 'Потребовалось на задание:',
       body: 'Справился быстро забыл пообедать',
