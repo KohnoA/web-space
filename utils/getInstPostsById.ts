@@ -21,5 +21,7 @@ export const getInstPostsById = async (
   const data: PostsResponseType = await Promise.all(res.map((item) => item.json()));
   const posts = data.map(({ media_url }) => media_url);
 
+  console.log(posts);
+
   return posts;
 };

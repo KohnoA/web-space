@@ -14,7 +14,7 @@ interface IFormInput {
 }
 
 export default function ContactsSection() {
-  const [confirm, setConfirm] = useState<boolean>(true);
+  const [confirm, setConfirm] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     register,
