@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+
+  font-size: 17px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+
+  font-style: normal;
+  font-family: 'Nunito', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+
+  background-color: white;
+  color: black;
+}
+
+body > main {
+  flex-grow: 1;
+}
+
+.container {
+  max-width: 1290px;
+  margin: 0 auto;
+}
+
+.section {
+  margin-bottom: 136px;
+}
+
+.page {
+  padding-top: 101px;
+}

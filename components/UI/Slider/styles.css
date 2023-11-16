@@ -1,0 +1,10 @@
+.sliderContainer {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  user-select: none;
+}
+
+.sliderContainer::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
